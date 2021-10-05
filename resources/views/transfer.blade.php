@@ -3,16 +3,15 @@
 @section('content')
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
         <h1 class="display-4 fw-normal">SALDO</h1>
-        <p class="fs-5 text-muted">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
-    </div>
+        <p class="fs-5 text-muted">R${{ $balance }}</div>
     <div class="container">
         <main>
                 <div class="col-md-7 col-lg-12">
-                    <h4 class="mb-3">Billing address</h4>
+                    <h4 class="mb-3">Dados para a transferência</h4>
                     <form class="needs-validation" novalidate>
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="firstName" class="form-label">First name</label>
+                                <label for="firstName" class="form-label">Primeiro nome</label>
                                 <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
                                     Valid first name is required.
@@ -20,7 +19,7 @@
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="lastName" class="form-label">Last name</label>
+                                <label for="lastName" class="form-label">Sobrenome</label>
                                 <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
                                     Valid last name is required.
@@ -28,10 +27,10 @@
                             </div>
 
                             <div class="col-12">
-                                <label for="username" class="form-label">Username</label>
+                                <label for="username" class="form-label">E-mail</label>
                                 <div class="input-group has-validation">
                                     <span class="input-group-text">@</span>
-                                    <input type="text" class="form-control" id="username" placeholder="Username" required>
+                                    <input type="text" class="form-control" id="username" placeholder="you@example.com" required>
                                     <div class="invalid-feedback">
                                         Your username is required.
                                     </div>
@@ -47,16 +46,11 @@
                             </div>
 
                             <div class="col-12">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                                <label for="address" class="form-label">CPF/CNPJ</label>
+                                <input type="text" class="form-control" id="address" placeholder="000.000.008-00/00.000.000/0001-80" required>
                                 <div class="invalid-feedback">
                                     Please enter your shipping address.
                                 </div>
-                            </div>
-
-                            <div class="col-12">
-                                <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-                                <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                             </div>
 
                             <div class="col-md-5">
@@ -93,46 +87,36 @@
                         <hr class="my-4">
 
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="same-address">
-                            <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-                        </div>
-
-                        <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="save-info">
                             <label class="form-check-label" for="save-info">Save this information for next time</label>
                         </div>
 
                         <hr class="my-4">
 
-                        <h4 class="mb-3">Payment</h4>
+                        <h4 class="mb-3">Pagamento</h4>
 
                         <div class="my-3">
                             <div class="form-check">
                                 <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-                                <label class="form-check-label" for="credit">Credit card</label>
+                                <label class="form-check-label" for="credit">Transferência</label>
                             </div>
                             <div class="form-check">
                                 <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-                                <label class="form-check-label" for="debit">Debit card</label>
-                            </div>
-                            <div class="form-check">
-                                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-                                <label class="form-check-label" for="paypal">PayPal</label>
+                                <label class="form-check-label" for="debit">Depósito</label>
                             </div>
                         </div>
 
                         <div class="row gy-3">
                             <div class="col-md-6">
-                                <label for="cc-name" class="form-label">Name on card</label>
+                                <label for="cc-name" class="form-label">Seu nome</label>
                                 <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                                <small class="text-muted">Full name as displayed on card</small>
                                 <div class="invalid-feedback">
                                     Name on card is required
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="cc-number" class="form-label">Credit card number</label>
+                                <label for="cc-number" class="form-label">Sobrenome</label>
                                 <input type="text" class="form-control" id="cc-number" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Credit card number is required
@@ -140,7 +124,7 @@
                             </div>
 
                             <div class="col-md-3">
-                                <label for="cc-expiration" class="form-label">Expiration</label>
+                                <label for="cc-expiration" class="form-label">CPF/CNPJ</label>
                                 <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Expiration date required
@@ -148,7 +132,7 @@
                             </div>
 
                             <div class="col-md-3">
-                                <label for="cc-cvv" class="form-label">CVV</label>
+                                <label for="cc-cvv" class="form-label">Valor</label>
                                 <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Security code required
@@ -158,7 +142,7 @@
 
                         <hr class="my-4">
 
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">Enviar</button>
                     </form>
                 </div>
             </div>

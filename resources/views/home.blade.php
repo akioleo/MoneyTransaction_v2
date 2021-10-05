@@ -12,16 +12,16 @@
 
 <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="E-mail" aria-label="Recipient's username" aria-describedby="basic-addon2">
-    <span class="input-group-text" id="basic-addon2">@example.com</span>
-</div>
-<div class="input-group mb-3">
-    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Estado">
-    <input type="text" class="form-control" placeholder="Cidade" aria-label="Username">
+    <span class="input-group-text" id="basic-addon2">@exemplo.com</span>
 </div>
 
 <div class="input-group mb-3">
     <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Telefone">
-    <input type="text" class="form-control" placeholder="Cidade" aria-label="CPF/CNPJ">
+</div>
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Estado">
+    <input type="text" class="form-control" placeholder="Cidade" aria-label="Username">
 </div>
 
 <div class="input-group">

@@ -50,19 +50,19 @@
                 @if (Route::has('login'))
                     <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                         @auth
-                            <a href="{{ url('/index') }}" class="me-3 py-2 text-dark text-decoration-none">Home</a>
+                            <a href="{{ url('/index') }}" class="me-3 py-2 text-dark text-decoration-none">Início</a>
                             <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">Logout
+                                                     document.getElementById('logout-form').submit();">Sair
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         @else
-                            <a href="{{ route('login') }}" class="me-3 py-2 text-dark text-decoration-none">Log in</a>
+                            <a href="{{ route('login') }}" class="me-3 py-2 text-dark text-decoration-none">Entrar</a>
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="me-3 py-2 text-dark text-decoration-none">Register</a>
+                                <a href="{{ route('register') }}" class="me-3 py-2 text-dark text-decoration-none">Cadastre-se</a>
                             @endif
                         @endauth
                     </div>
@@ -82,7 +82,7 @@
     <hr/>
 
     <footer class="container">
-        <p class="float-end"><a href="#">Back to top</a></p>
+        <p class="float-end"><a href="#">Voltar</a></p>
         <p>&copy; {{ date('Y') }} Inc, MoneyTransaction &middot; <b>Developed by Leonardo Akio</b></p>
     </footer>
 

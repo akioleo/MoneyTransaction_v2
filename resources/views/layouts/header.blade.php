@@ -44,10 +44,10 @@
                                 @csrf
                             </form>
                         @else
-                            <a href="{{ route('login') }}" class="me-3 py-2 text-dark text-decoration-none">Log in</a>
+                            <a href="{{ route('login') }}" class="me-3 py-2 text-dark text-decoration-none">Entrar</a>
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="me-3 py-2 text-dark text-decoration-none">Register</a>
+                                <a href="{{ route('register') }}" class="me-3 py-2 text-dark text-decoration-none">Cadastre-se</a>
                             @endif
                         @endauth
                     </div>

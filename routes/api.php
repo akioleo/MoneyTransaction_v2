@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TransactionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['prefix' => 'transaction'], function() {
+    Route::post('/', [TransactionController::class, 'transaction']);
+    Route::post('/deposit', [TransactionController::class, 'deposit']);
+    Route::post('/withdrawl', [TransactionController::class, 'withdrawl']);
 });

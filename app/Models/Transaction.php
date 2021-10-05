@@ -12,6 +12,11 @@ class Transaction extends Model
     protected $table = "transactions";
 
     protected $fillable = [
-        'id', 'payer', 'payee','value'
+        'payer', 'payee','value', 'status'
+    ];
+
+    protected $attributes = [
+        'value' => 0,
+        'status' => 0
     ];
 }
