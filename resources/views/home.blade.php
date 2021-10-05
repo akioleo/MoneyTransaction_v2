@@ -1,10 +1,9 @@
 @extends('layouts.layout')
 
 @section('content')
-    <img src="https://i.postimg.cc/J7fLDHGS/pic.png" alt="" width="100%" height="50%">
-    </br>
-    <img src="https://i.postimg.cc/2y4XB6tf/pic.png" alt="" width="100%" height="50%">
     <img src="https://i.postimg.cc/rFrPvhyP/pic.png" alt="" width="100%" height="50%">
+    <img src="https://i.postimg.cc/2y4XB6tf/pic.png" alt="" width="100%" height="50%">
+    <img src="https://i.postimg.cc/3x49y1cH/contact.png" alt="" width="100%" height="50%">
 <hr/>
     <h2 align="center" style="color: #1d68a7">Entre em contato</h2><br>
 <div class="input-group mb-3">

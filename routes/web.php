@@ -18,12 +18,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
-
-
-Route::get('/transfer', function () {
-    return view('transfer');
-});
-
+Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('/show', [App\Http\Controllers\HomeController::class, 'show'])->name('index');
+Route::get('/transfer', [App\Http\Controllers\TransactionController::class, 'transfer'])->name('transfer');
+Route::post('/transferred', [App\Http\Controllers\TransactionController::class, 'store'])->name('store');
 

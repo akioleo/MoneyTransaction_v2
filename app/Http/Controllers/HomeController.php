@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +22,23 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $user = $request->user();
+        if (strlen($user['document']) > 11){
+            $user['account_type'] = 1;
+            $user->save();
+        }
+        $userType = ($user['account_type']);
+        $balance = ($user['balance']);
+        return view('index', [
+            'type' => $userType,
+            'balance' => $balance
+            ]);
+    }
+
+    public function show(Request $request)
+    {
+        return response()->json($request->user());
     }
 }
