@@ -1,11 +1,18 @@
 @extends('layouts.layout')
 
 @section('content')
+    <style>
+        input.form-control:focus {
+            outline: none;
+            box-shadow: none !important;
+        }
+    </style>
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
         <h1 class="display-4 fw-normal">SALDO</h1>
         <p class="fs-5 text-muted">R${{ $balance }}</p>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center align-items-start justify-content-center">
+        @if($type === 0)
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm">
                 <div class="card-header py-3">
@@ -14,16 +21,14 @@
                 <div class="card-body">
                     <small class="text-muted fw-light">VALOR</small><input type="text" name="edit_balance" id="edit_balance" value="R$" class="form-control" style="border: none; border-inline: none; font-size: 35px; text-align: center"/>
                     <ul class="list-unstyled mt-3 mb-4">
-                        <li>10 users included</li>
+                        <li>Digite um valor</li>
                     </ul>
-                    @if($type === 1)
-                        <button disabled onclick="window.location='{{ url("/transferred") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" >Enviar</button>
-                    @else
-                        <button onclick="window.location='{{ url("/transferred") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" > Enviar</button>
-                    @endif
+                    <button disabled onclick="window.location='{{ url("/transferred") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" >Enviar</button>
+                    <button onclick="window.location='{{ url("/transferred") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" > Enviar</button>
                 </div>
             </div>
         </div>
+        @endif
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm">
                 <div class="card-header py-3">
@@ -32,7 +37,7 @@
                 <div class="card-body">
                     <small class="text-muted fw-light">VALOR</small><input type="text" name="edit_balance" id="edit_balance" value="R$" class="form-control" style="border: none; border-inline: none; font-size: 35px; text-align: center"/>
                     <ul class="list-unstyled mt-3 mb-4">
-                        <li>20 users included</li>
+                        <li>Digite um valor</li>
                     </ul>
                         <button onclick="window.location='{{ url("/transfer") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" > Depositar</button>
                 </div>
@@ -46,7 +51,7 @@
                 <div class="card-body">
                     <small class="text-muted fw-light">VALOR</small><input type="text" name="edit_balance" id="edit_balance" value="R$" class="form-control" style="border: none; border-inline: none; font-size: 35px; text-align: center"/>
                     <ul class="list-unstyled mt-3 mb-4">
-                        <li>30 users included</li>
+                        <li>Digite um valor</li>
                     </ul>
                     <a href='/transfer'>
                         <button type="button" class="w-100 btn btn-lg btn-outline-primary">Retirar

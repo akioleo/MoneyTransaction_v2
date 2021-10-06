@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Api\ApiMessages;
 use App\Http\Requests\TransactionRequest;
 use App\Http\Requests\DepositWithdrawlRequest;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -17,15 +18,13 @@ class TransactionController extends Controller
             $payer = auth()->user();
             $payee = User::find($request->payee);
 
-            if($payer == $payee) {
-                throw new \Exception('Conta de destino não pode ser a mesma que a atual');
-            }
-            if($payer->account_type == 1) {
-                throw new \Exception('Operacao nao permitida para lojista.');
-            }
-            if($payer->balance < $request->value){
-                throw new \Exception('Saldo insuficiente para transferência');
-            }
+
+            if($payer->account_type == 1)
+                throw new \Exception('Operacao nao permitida para lojista.', 21);
+            if($payer == $payee)
+                throw new \Exception('Conta de destino não pode ser a mesma que a atual', 22);
+            if($payer->balance < $request->value)
+                throw new \Exception('Saldo insuficiente para transferência', 23);
 
             $payer->balance = $payer->balance - floatval($request->value);
             $payee->balance = $payee->balance + floatval($request->value);
@@ -34,7 +33,7 @@ class TransactionController extends Controller
             curl_setopt($auth, CURLOPT_RETURNTRANSFER, true);
             $return = json_decode(curl_exec($auth));
             if($return->message != "Autorizado") {
-                throw new \Exception('Recusado pelo autenticador!');
+                throw new \Exception('Recusado pelo autenticador!', 31);
             }
             curl_close($auth);
 
@@ -42,25 +41,37 @@ class TransactionController extends Controller
             curl_setopt($notify, CURLOPT_RETURNTRANSFER, true);
             $result = json_decode(curl_exec($notify));
             if($result->message != "Success") {
-                throw new \Exception('Recusado');
+                throw new \Exception('Recusado', 32);
             }
             curl_close($notify);
 
             $payee->save();
             $payer->save();
 
+            $transaction = new Transaction();
+            $transaction->payer = $payer->id;
+            $transaction->payer = $payee->id;
+            $transaction->value = $request->value;
+            $transaction->status = 11;
+            $transaction->save();
+
             return response()->json([
                 'data'=>[
                     'msg' => 'Transferência realizada com sucesso!',
-                    'status' => '1'
+                    'status' => '11'
                 ]
             ],200);
         } catch(\Exception $e) {
             DB::rollBack();
+            $transaction = new Transaction();
+            $transaction->payer = $payer->id;
+            $transaction->payee = $payee->id;
+            $transaction->value = $request->value;
+            $transaction->status = $e->getCode();
+            $transaction->save();
+
             $message = new ApiMessages($e->getMessage());
-            return response()->json($message->getMessage(), 401);
-        } finally {
-            DB::commit();
+            return response()->json($message->getMessage(), 403);
         }
     }
 
@@ -69,21 +80,34 @@ class TransactionController extends Controller
         try {
             $user = auth()->user();
             if($user->balance < $request->value) {
-                throw new \Exception('Voce nao possui este saldo!');
+                throw new \Exception('Saldo insuficiente para saque', 13);
             }
             $user->balance = $user->balance - floatval($request->value);
             $user->save();
 
+            $transaction = new Transaction();
+            $transaction->payer = $user->id;
+            $transaction->value = $request->value;
+            $transaction->status = 12;
+            $transaction->save();
+
             return response()->json([
                 'data'=>[
-                    'msg' => 'Saque realizado com sucesso!'
+                    'msg' => 'Saque realizado com sucesso!',
+                    'status' => '12'
                 ]
             ],200);
-            DB::commit();
+
         } catch(\Exception $e) {
             DB::rollBack();
+//            $transaction = new Transaction();
+//            $transaction->payer = $user->id;
+//            $transaction->value = $request->value;
+//            $transaction->status = $e->getCode();
+//            $transaction->save();
+
             $message = new ApiMessages($e->getMessage());
-            return response()->json($message->getMessage(), 401);
+            return response()->json($message->getMessage(), 403);
         } finally {
             DB::commit();
         }
@@ -97,16 +121,31 @@ class TransactionController extends Controller
             $user->balance = $user->balance + floatval($request->value);
             $user->save();
 
+//            $transaction = new Transaction();
+//            $transaction->payer = $user->id;
+//            $transaction->payee = null;
+//            $transaction->value = $request->value;
+//            $transaction->status = 13;
+//            $transaction->save();
+
             return response()->json([
                 'data'=>[
-                    'msg' => 'Depósito realizado com sucesso!'
+                    'msg' => 'Depósito realizado com sucesso!',
+                    'status' => '13'
                 ]
             ],200);
 
         } catch (\Exception $e) {
           DB::rollback();
+//            $transaction = new Transaction();
+//            $transaction->payer = $user->id;
+//            $transaction->payee = null;
+//            $transaction->value = $request->value;
+//            $transaction->status = $e->getCode();
+//            $transaction->save();
+
             $message = new ApiMessages($e->getMessage());
-            return response()->json($message->getMessage(), 401);
+            return response()->json($message->getMessage(), 403);
         } finally {
             DB::commit();
         }

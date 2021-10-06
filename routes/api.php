@@ -16,27 +16,25 @@ use App\Http\Controllers\TransactionController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::prefix('auth')->group(function(){
-        Route::post('/login', [LoginJwtController::class, 'login']);
-        Route::get('/logout', [LoginJwtController::class, 'logout']);
-        Route::get('/refresh', [LoginJwtController::class, 'refresh']);
-        Route::group(['middleware' => ['jwt.auth']], function (){
-            Route::name('users.')->group(function(){
-                Route::resource('users', UserController::class);
-            });
+    Route::post('/login', [LoginJwtController::class, 'login']);
+    Route::get('/logout', [LoginJwtController::class, 'logout']);
+    Route::get('/refresh', [LoginJwtController::class, 'refresh']);
+    Route::group(['middleware' => ['jwt.auth']], function (){
+        Route::name('users.')->group(function(){
+            Route::resource('users', UserController::class);
+        });
     });
 });
 
 
-    Route::prefix('transaction')->group(function(){
-        Route::group(['middleware' => ['jwt.auth']], function (){
-            Route::post('/', [TransactionController::class, 'transaction']);
-            Route::post('/deposit', [TransactionController::class, 'deposit']);
-            Route::post('/withdrawl', [TransactionController::class, 'withdrawl']);
+Route::prefix('transaction')->group(function(){
+    Route::group(['middleware' => ['jwt.auth']], function (){
+        Route::post('/', [TransactionController::class, 'transaction']);
+        Route::post('/deposit', [TransactionController::class, 'deposit']);
+        Route::post('/withdrawl', [TransactionController::class, 'withdrawl']);
     });
 });
+
+
 

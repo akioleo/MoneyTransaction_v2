@@ -16,7 +16,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('payer');
-            $table->unsignedBigInteger('payee');
+            $table->unsignedBigInteger('payee')->nullable();
             $table->float('value', 8, 2);
             $table->integer('status')->default(0);
             $table->timestamps();
