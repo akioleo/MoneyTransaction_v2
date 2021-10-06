@@ -18,13 +18,14 @@ class TransactionController extends Controller
             $payer = auth()->user();
             $payee = User::find($request->payee);
 
-
+            if($payee == null)
+                throw new \Exception('Destinatário não encontrado', 21);
             if($payer->account_type == 1)
-                throw new \Exception('Operacao nao permitida para lojista.', 21);
+                throw new \Exception('Operação não permitida para lojista', 22);
             if($payer == $payee)
-                throw new \Exception('Conta de destino não pode ser a mesma que a atual', 22);
+                throw new \Exception('Conta de destino não pode ser a mesma que a atual', 23);
             if($payer->balance < $request->value)
-                throw new \Exception('Saldo insuficiente para transferência', 23);
+                throw new \Exception('Saldo insuficiente para transferência', 24);
 
             $payer->balance = $payer->balance - floatval($request->value);
             $payee->balance = $payee->balance + floatval($request->value);
@@ -50,28 +51,41 @@ class TransactionController extends Controller
 
             $transaction = new Transaction();
             $transaction->payer = $payer->id;
-            $transaction->payer = $payee->id;
+            $transaction->payee = $payee->id;
             $transaction->value = $request->value;
+            $transaction->operation_type = 1;
             $transaction->status = 11;
             $transaction->save();
 
             return response()->json([
                 'data'=>[
                     'msg' => 'Transferência realizada com sucesso!',
-                    'status' => '11'
+                    'status' =>  $transaction->status,
+                    'payer' => array(
+                                'id' => $payer->id,
+                                'name' => $payer->name
+                                ),
+                    'payee' => array(
+                                'id' => $payee->id,
+                                'name' => $payee->name
+                                )
                 ]
             ],200);
-        } catch(\Exception $e) {
+        }
+        catch(\Exception $e) {
             DB::rollBack();
             $transaction = new Transaction();
             $transaction->payer = $payer->id;
-            $transaction->payee = $payee->id;
+            (isset($payee)) ? $transaction->payee = $payee->id : $transaction->payee = null;
             $transaction->value = $request->value;
+            $transaction->operation_type = 1;
             $transaction->status = $e->getCode();
             $transaction->save();
 
             $message = new ApiMessages($e->getMessage());
             return response()->json($message->getMessage(), 403);
+        } finally {
+            DB::commit();
         }
     }
 
@@ -80,7 +94,7 @@ class TransactionController extends Controller
         try {
             $user = auth()->user();
             if($user->balance < $request->value) {
-                throw new \Exception('Saldo insuficiente para saque', 13);
+                throw new \Exception('Saldo insuficiente para saque', 24);
             }
             $user->balance = $user->balance - floatval($request->value);
             $user->save();
@@ -88,23 +102,29 @@ class TransactionController extends Controller
             $transaction = new Transaction();
             $transaction->payer = $user->id;
             $transaction->value = $request->value;
-            $transaction->status = 12;
+            $transaction->operation_type = 2;
+            $transaction->status = 11;
             $transaction->save();
 
             return response()->json([
                 'data'=>[
                     'msg' => 'Saque realizado com sucesso!',
-                    'status' => '12'
+                    'status' =>  $transaction->status,
+                    'payer' => array(
+                        'id' => $user->id,
+                        'name' => $user->name
+                    )
                 ]
             ],200);
 
         } catch(\Exception $e) {
             DB::rollBack();
-//            $transaction = new Transaction();
-//            $transaction->payer = $user->id;
-//            $transaction->value = $request->value;
-//            $transaction->status = $e->getCode();
-//            $transaction->save();
+            $transaction = new Transaction();
+            $transaction->payer = $user->id;
+            $transaction->value = $request->value;
+            $transaction->operation_type = 2;
+            $transaction->status = $e->getCode();
+            $transaction->save();
 
             $message = new ApiMessages($e->getMessage());
             return response()->json($message->getMessage(), 403);
@@ -121,28 +141,32 @@ class TransactionController extends Controller
             $user->balance = $user->balance + floatval($request->value);
             $user->save();
 
-//            $transaction = new Transaction();
-//            $transaction->payer = $user->id;
-//            $transaction->payee = null;
-//            $transaction->value = $request->value;
-//            $transaction->status = 13;
-//            $transaction->save();
+            $transaction = new Transaction();
+            $transaction->payer = $user->id;
+            $transaction->value = $request->value;
+            $transaction->operation_type = 3;
+            $transaction->status = 11;
+            $transaction->save();
 
             return response()->json([
                 'data'=>[
                     'msg' => 'Depósito realizado com sucesso!',
-                    'status' => '13'
+                    'status' =>  $transaction->status,
+                    'payer' => array(
+                        'id' => $user->id,
+                        'name' => $user->name
+                    )
                 ]
             ],200);
 
         } catch (\Exception $e) {
           DB::rollback();
-//            $transaction = new Transaction();
-//            $transaction->payer = $user->id;
-//            $transaction->payee = null;
-//            $transaction->value = $request->value;
-//            $transaction->status = $e->getCode();
-//            $transaction->save();
+            $transaction = new Transaction();
+            $transaction->payer = $user->id;
+            $transaction->value = $request->value;
+            $transaction->operation_type = 3;
+            $transaction->status = $e->getCode();
+            $transaction->save();
 
             $message = new ApiMessages($e->getMessage());
             return response()->json($message->getMessage(), 403);

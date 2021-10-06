@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     /*
-     SUCCESS:
-     11 - TRANSFER_SUCCESS
-     12 - WITHDRAWL_SUCCESS
-     13 - DEPOSIT_SUCCESS
+    STATUS_MESSAGES:
 
-     LOGIC ERRORS:
-     21 - SHOPKEEPER_ID
-     22 - SAME_ACCOUNTS
-     23 - INSUFFICIENT_BALANCE
+     * 11 - SUCCESS
 
-     EXTERNAL ERRORS:
+     * LOGIC ERRORS:
+     21 - USER_DOESNT_EXIST
+     22 - SHOPKEEPER_ID
+     23 - SAME_TRANSFER_ACCOUNTS
+     24 - INSUFFICIENT_BALANCE
+
+     * EXTERNAL ERRORS:
      31 - AUTHORIZATION_ERROR
      32 - NOTIFICATION_ERROR
      */

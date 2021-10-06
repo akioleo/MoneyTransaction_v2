@@ -17,8 +17,9 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('payer');
             $table->unsignedBigInteger('payee')->nullable();
-            $table->float('value', 8, 2);
+            $table->integer('operation_type');
             $table->integer('status')->default(0);
+            $table->float('value', 15, 2);
             $table->timestamps();
             $table->softDeletes();
 
