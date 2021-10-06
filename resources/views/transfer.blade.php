@@ -7,20 +7,28 @@
     <div class="container">
         <main class="row justify-content-center">
                 <div class="col-md-7 col-lg-12">
-                    <h4 class="mb-3">Preencha os campos abaixo</h4>
+                    <h4 class="mb-3">Por favor preencha os dados para realizar a transferência</h4>
                     <form class="needs-validation" action="{{ route('store') }}" method="post" >
                         <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label for="firstName" class="form-label">Primeiro nome</label>
-                                <input type="text" name="name" class="form-control" id="firstName" placeholder="Digite seu nome" value="" required>
+                            <div class="col-sm-12">
+                                <label for="firstName" class="form-label">Nome Completo</label>
+                                <input type="text" name="name" class="form-control" id="firstName" placeholder="Nome Completo" value="" required>
                                 <div class="invalid-feedback">
                                     Valid first name is required.
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
-                                <label for="lastName" class="form-label">Sobrenome</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Digite o sobrenome" value="" required>
+                            <div class="col-sm-12">
+                                <label for="document" class="form-label">CPF</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Ex: 999.999.999-88" value="" required>
+                                <div class="invalid-feedback">
+                                    Valid last name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label for="lastName" class="form-label">Nome do destinatário</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Digite o nome para quem irá transferir" value="" required>
                                 <div class="invalid-feedback">
                                     Valid last name is required.
                                 </div>

@@ -23,8 +23,7 @@
                     <ul class="list-unstyled mt-3 mb-4">
                         <li>Digite um valor</li>
                     </ul>
-                    <button disabled onclick="window.location='{{ url("/transferred") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" >Enviar</button>
-                    <button onclick="window.location='{{ url("/transferred") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" > Enviar</button>
+                    <button onclick="window.location='{{ url("/transfer") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" > Enviar</button>
                 </div>
             </div>
         </div>
@@ -39,26 +38,24 @@
                     <ul class="list-unstyled mt-3 mb-4">
                         <li>Digite um valor</li>
                     </ul>
-                        <button onclick="window.location='{{ url("/transfer") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" > Depositar</button>
+                        <button onclick="window.location='{{ url("/deposit") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" > Depositar</button>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm border-primary">
-                <div class="card-header py-3 text-white bg-primary border-primary">
-                    <h4 class="my-0 fw-normal">Saque</h4>
-                </div>
-                <div class="card-body">
-                    <small class="text-muted fw-light">VALOR</small><input type="text" name="edit_balance" id="edit_balance" value="R$" class="form-control" style="border: none; border-inline: none; font-size: 35px; text-align: center"/>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Digite um valor</li>
-                    </ul>
-                    <a href='/transfer'>
-                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Retirar
-                        </button></a>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Saque</h4>
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted fw-light">VALOR</small><input type="text" name="edit_balance" id="edit_balance" name="deposit_balance" value="R$" class="form-control" style="border: none; border-inline: none; font-size: 35px; text-align: center"/>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Digite um valor</li>
+                        </ul>
+                        <button onclick="window.location='{{ url("/withdrawl") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" >Retirar</button>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
     <hr/>
     <div class="container-fluid">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Auth::routes();
-Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
-Route::get('/show', [App\Http\Controllers\HomeController::class, 'show'])->name('index');
-Route::get('/transfer', [App\Http\Controllers\HomeController::class, 'transfer'])->name('transfer');
-Route::post('/store', [App\Http\Controllers\HomeController::class, 'store'])->name('store');
+Route::get('/index', [HomeController::class, 'index'])->name('index');
+Route::get('/show', [HomeController::class, 'show'])->name('index');
+Route::get('/transfer', [HomeController::class, 'transfer'])->name('transfer');
+Route::post('/store', [HomeController::class, 'store'])->name('store');
+Route::get('/deposit', [HomeController::class, 'deposit'])->name('deposit');
+Route::get('/withdrawl', [HomeController::class, 'withdrawl'])->name('withdrawl');
 

@@ -28,8 +28,8 @@ class HomeController extends Controller
             $user['account_type'] = 1;
             $user->save();
         }
-        $userType = ($user['account_type']);
-        $balance = ($user['balance']);
+        $userType = auth()->user()->account_type;
+        $balance = auth()->user()->balance;
         return view('index', [
             'type' => $userType,
             'balance' => $balance
@@ -44,8 +44,23 @@ class HomeController extends Controller
             ]);
     }
 
-    public function store (Request $request)
+    public function deposit()
     {
-        dd($request->only('name'));
+        $extract = auth()->user()->balance;
+        $acctype = auth()->user()->account_type;
+        return view('deposit', [
+            'balance' => $extract,
+            'acctype' => $acctype
+        ]);
+    }
+
+    public function withdrawl()
+    {
+        $extract = auth()->user()->balance;
+        $acctype = auth()->user()->account_type;
+        return view('withdrawl', [
+            'balance' => $extract,
+            'acctype' => $acctype
+        ]);
     }
 }
