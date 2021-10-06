@@ -12,7 +12,7 @@
                     <h4 class="my-0 fw-normal">Transferência</h4>
                 </div>
                 <div class="card-body">
-                    <small class="text-muted fw-light">VALOR</small><h1 class="card-title pricing-card-title"><input type="text" name="edit_balance" id="edit_balance" value="R$" class="form-control"/></h1>
+                    <small class="text-muted fw-light">VALOR</small><input type="text" name="edit_balance" id="edit_balance" value="R$" class="form-control" style="border: none; border-inline: none; font-size: 35px; text-align: center"/>
                     <ul class="list-unstyled mt-3 mb-4">
                         <li>10 users included</li>
                     </ul>
@@ -27,29 +27,29 @@
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm">
                 <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Cobrança</h4>
+                    <h4 class="my-0 fw-normal">Depósito</h4>
                 </div>
                 <div class="card-body">
-                    <small class="text-muted fw-light">VALOR</small><h1 class="card-title pricing-card-title">$15</h1>
+                    <small class="text-muted fw-light">VALOR</small><input type="text" name="edit_balance" id="edit_balance" value="R$" class="form-control" style="border: none; border-inline: none; font-size: 35px; text-align: center"/>
                     <ul class="list-unstyled mt-3 mb-4">
                         <li>20 users included</li>
                     </ul>
-                        <button onclick="window.location='{{ url("/transfer") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" > Enviar</button>
+                        <button onclick="window.location='{{ url("/transfer") }}'" type="button" class="w-100 btn btn-lg btn-outline-primary" > Depositar</button>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm border-primary">
                 <div class="card-header py-3 text-white bg-primary border-primary">
-                    <h4 class="my-0 fw-normal">Depósito</h4>
+                    <h4 class="my-0 fw-normal">Saque</h4>
                 </div>
                 <div class="card-body">
-                    <small class="text-muted fw-light">VALOR</small><h1 class="card-title pricing-card-title">$29</h1>
+                    <small class="text-muted fw-light">VALOR</small><input type="text" name="edit_balance" id="edit_balance" value="R$" class="form-control" style="border: none; border-inline: none; font-size: 35px; text-align: center"/>
                     <ul class="list-unstyled mt-3 mb-4">
                         <li>30 users included</li>
                     </ul>
                     <a href='/transfer'>
-                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Depositar
+                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Retirar
                         </button></a>
                 </div>
             </div>

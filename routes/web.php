@@ -20,6 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 Route::get('/show', [App\Http\Controllers\HomeController::class, 'show'])->name('index');
-Route::get('/transfer', [App\Http\Controllers\TransactionController::class, 'transfer'])->name('transfer');
-Route::post('/transferred', [App\Http\Controllers\TransactionController::class, 'store'])->name('store');
+Route::get('/transfer', [App\Http\Controllers\HomeController::class, 'transfer'])->name('transfer');
+Route::post('/store', [App\Http\Controllers\HomeController::class, 'store'])->name('store');
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -37,8 +36,16 @@ class HomeController extends Controller
             ]);
     }
 
-    public function show(Request $request)
+    public function transfer(Request $request)
     {
-        return response()->json($request->user());
+        $extract = auth()->user()->balance;
+        return view('transfer', [
+            'balance' => $extract
+            ]);
+    }
+
+    public function store (Request $request)
+    {
+        dd($request->only('name'));
     }
 }

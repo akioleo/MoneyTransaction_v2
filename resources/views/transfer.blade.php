@@ -8,11 +8,11 @@
         <main>
                 <div class="col-md-7 col-lg-12">
                     <h4 class="mb-3">Dados para a transferência</h4>
-                    <form class="needs-validation" novalidate>
+                    <form class="needs-validation" action="{{ route('store') }}" method="post" >
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label for="firstName" class="form-label">Primeiro nome</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                <input type="text" name="name" class="form-control" id="firstName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
                                     Valid first name is required.
                                 </div>
