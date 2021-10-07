@@ -1,6 +1,17 @@
 @extends('layouts.layout')
 
 @section('content')
+
+    <script src="https://unpkg.com/imask"></script>
+    <script>var numberMask = IMask(
+            document.getElementById('document'),
+            {
+                mask: Number,
+                min: -10000,
+                max: 10000,
+                thousandsSeparator: ' '
+            });</script>
+
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
         <h1 class="display-4 fw-normal">SALDO</h1>
         <p class="fs-5 text-muted">R${{ $balance }}</div>
@@ -20,7 +31,7 @@
 
                             <div class="col-sm-12">
                                 <label for="document" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Ex: 999.999.999-88" value="" required>
+                                <input type="text" class="form-control" id="document" placeholder="Ex: 999.999.999-88" value="" required>
                                 <div class="invalid-feedback">
                                     Valid last name is required.
                                 </div>
@@ -61,4 +72,5 @@
                 </div>
             </div>
         </main>
+
 @endsection
