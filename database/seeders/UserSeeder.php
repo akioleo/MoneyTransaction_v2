@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Constants\Constants;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -22,8 +23,7 @@ class UserSeeder extends Seeder
                  'email' => 'admin@admin.com',
                  'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                  'document' => '99999999999',
-                 'balance' => 50000,
-                 'account_type' => 0,
+                 'account_type' => Constants::USER_ACCOUNT_TYPE_USER,
          ],
         );
 
@@ -33,8 +33,7 @@ class UserSeeder extends Seeder
                 'email' => 'admin@admin.com.br',
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'document' => '99999999999999',
-                'balance' => 50000,
-                'account_type' => 1,
+                'account_type' => Constants::USER_ACCOUNT_TYPE_SHOPKEEPER,
             ],
         );
     }

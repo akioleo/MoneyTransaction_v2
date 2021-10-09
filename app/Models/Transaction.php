@@ -2,37 +2,33 @@
 
 namespace App\Models;
 
+use App\Traits\ModelTransform;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    /*
-    STATUS_MESSAGES:
 
-     * 11 - SUCCESS
+    use HasFactory, ModelTransform;
 
-     * LOGIC ERRORS:
-     21 - USER_DOESNT_EXIST
-     22 - SHOPKEEPER_ID
-     23 - SAME_TRANSFER_ACCOUNTS
-     24 - INSUFFICIENT_BALANCE
-
-     * EXTERNAL ERRORS:
-     31 - AUTHORIZATION_ERROR
-     32 - NOTIFICATION_ERROR
-     */
-
-    use HasFactory;
 
     protected $table = "transactions";
 
+    public $transformer = \App\Transformers\TransactionTransformer::class;
+
     protected $fillable = [
-        'payer', 'payee','value','status'
+        'payer_id', 'payee_id','value','status', 'operation_type'
     ];
 
-    protected $attributes = [
-        'value' => 0,
-        'status' => 0,
-    ];
+    public function payee()
+    {
+        return $this->belongsTo(User::class, 'payee_id', 'id');
+    }
+
+    public function payer()
+    {
+        return $this->belongsTo(User::class, 'payer_id', 'id');
+    }
+
+
 }

@@ -26,12 +26,8 @@ Route::prefix('auth')->group(function(){
 });
 
 
-Route::prefix('transaction')->name('transaction')->group(function(){
     Route::group(['middleware' => ['jwt.auth']], function (){
-        Route::post('/', [TransactionController::class, 'transaction']);
-        Route::post('/deposit', [TransactionController::class, 'deposit'])->name('.deposit');
-        Route::post('/withdrawl', [TransactionController::class, 'withdrawl'])->name('.withdrawl');
-    });
+        Route::apiResource('transactions', TransactionController::class);
 });
 
 

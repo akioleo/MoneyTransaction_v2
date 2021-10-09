@@ -24,8 +24,9 @@ class TransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'payee' => 'required|numeric',
-            'value' => 'required|numeric|min:0.1|min:0.1|regex:/^\d+(\.\d{1,2})?$/'
+            'payee_id' => 'required_if:operation_type,TRANSFER,DEPOSIT|numeric|exists:users,id',
+            'value' => 'required|numeric|min:0.1|min:0.1|regex:/^\d+(\.\d{1,2})?$/',
+            'operation_type' => 'required|in:TRANSFER,WITHDRAWL,DEPOSIT'
         ];
     }
 

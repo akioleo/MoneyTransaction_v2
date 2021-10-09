@@ -20,8 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('document')->unique()->always();
             //$table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->float('balance', 15, 2);
-            $table->boolean('account_type')->default(0);
+            $table->string('account_type');
             $table->rememberToken();
             $table->timestamps();
         });

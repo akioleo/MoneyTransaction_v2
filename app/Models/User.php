@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ModelTransform;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +12,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, ModelTransform;
+
+    public $transformer = \App\Transformers\UserTransformer::class;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +26,6 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'email',
         'document',
-        'balance',
         'account_type'
     ];
 
@@ -47,7 +49,6 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $attributes = [
-        'balance' => 0,
         'account_type' => 0
     ];
 
@@ -61,5 +62,14 @@ class User extends Authenticatable implements JWTSubject
     {
         //Se quiser retornar alguma claim
         return [];
+    }
+
+    public function getBalance()
+    {
+        $income = Transaction::where('payee_id', $this->id)->sum('value');
+        //dd($receitas);
+        $saida = Transaction::where('payer_id', $this->id)->sum('value');
+        //dd($saida);
+        return (float)$income - $saida;
     }
 }

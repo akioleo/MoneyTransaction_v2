@@ -15,16 +15,16 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('payer');
-            $table->unsignedBigInteger('payee')->nullable();
-            $table->integer('operation_type');
-            $table->integer('status')->default(0);
+            $table->unsignedBigInteger('payer_id')->nullable();
+            $table->unsignedBigInteger('payee_id')->nullable();
+            $table->string('operation_type');
+            $table->string('status')->nullable();
             $table->float('value', 15, 2);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('payer')->references('id')->on('users');
-            $table->foreign('payee')->references('id')->on('users');
+            $table->foreign('payer_id')->references('id')->on('users');
+            $table->foreign('payee_id')->references('id')->on('users');
         });
     }
 
