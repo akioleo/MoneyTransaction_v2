@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminTransactionsController;
+use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\LoginJwtController;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TransactionController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes

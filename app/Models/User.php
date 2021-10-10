@@ -66,7 +66,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function transaction()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'payer_id', 'id');
     }
 
     public function getBalance()

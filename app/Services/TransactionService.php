@@ -19,10 +19,10 @@ class TransactionService {
             throw new \Exception('Saldo insuficiente');
         } else {
             $transaction->payer_id = $user->id;
+            $transaction->payee_id = null;
         }
 
         if (in_array($data['operation_type'], [Constants::TRANSACTION_OPERATION_DEPOSIT])) {
-            $transaction->payer_id = null;
             $transaction->payee_id = $data['payee_id'];
         }
 

@@ -26,7 +26,8 @@ class TransactionRequest extends FormRequest
         return [
             'payee_id' => 'required_if:operation_type,TRANSFER,DEPOSIT|numeric|exists:users,id',
             'value' => 'required|numeric|min:0.1|min:0.1|regex:/^\d+(\.\d{1,2})?$/',
-            'operation_type' => 'required|in:TRANSFER,WITHDRAWL,DEPOSIT'
+            'operation_type' => 'required|in:TRANSFER,WITHDRAWL,DEPOSIT',
+            'status' => 'required'
         ];
     }
 
@@ -34,6 +35,7 @@ class TransactionRequest extends FormRequest
     {
         return [
             'required' => 'Este campo é obrigatório!',
+            'required_if' => 'Este campo é obrigatório para operações de :value',
             'min' => 'O valor mínimo deve ser R$0.1',
             'regex' => 'Deve informar no máximo duas casas decimais',
             'exists' => 'Usuário não existe no sistema'

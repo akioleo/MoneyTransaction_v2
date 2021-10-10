@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Api\ApiMessages;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
-use App\Models\User;
 use App\Services\ExternalService;
 use App\Services\TransactionService;
 use Illuminate\Support\Facades\DB;
@@ -18,26 +18,33 @@ class TransactionController extends Controller
     {
         $this->transaction = $transaction;
     }
-    public function index(User $users)
+
+    public function index()
     {
-        $user = auth()->user();
-        $transactions = $user->$this->transaction;
-        return response()->json([
-            'data' => $transactions
-        ], 200);
+        try {
+            $transactions = auth()->user()->transaction()->paginate('10');
+            return response()->json([
+                'data' => $transactions
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Você ainda não possui transações registradas!'], 404);
+        }
     }
 
     public function show($transaction)
     {
-        $transactions = $this->transaction->whereId($transaction)->first();
-        return response()->json([
-            'data' => $transactions
-        ], 200);
+        try {
+            $transactions = auth()->user()->transaction()->with('payer')->findOrFail($transaction);
+            return response()->json([
+                'data' => $transactions
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Transação não encontrada!'], 404);
+        }
     }
 
     public function store(TransactionRequest $request)
     {
-        //DB::beginTransaction();
         try {
             $transactionService = new TransactionService();
             $transaction = $transactionService->store($request->all());
@@ -49,6 +56,4 @@ class TransactionController extends Controller
             return response()->json($message->getMessage(), 422);
         }
     }
-
-
 }
