@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminTransactionsController;
 use App\Http\Controllers\LoginJwtController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -22,12 +23,17 @@ Route::prefix('auth')->group(function(){
     Route::get('/refresh', [LoginJwtController::class, 'refresh']);
     Route::group(['middleware' => ['jwt.auth']], function (){
             Route::resource('users', UserController::class);
-        });
+    });
 });
 
-
+Route::prefix('admin')->name('admin.')->group(function(){
     Route::group(['middleware' => ['jwt.auth']], function (){
-        Route::apiResource('transactions', TransactionController::class);
+        Route::apiResource('transactions', AdminTransactionsController::class);
+    });
+});
+
+Route::group(['middleware' => ['jwt.auth']], function (){
+    Route::apiResource('transactions', TransactionController::class);
 });
 
 

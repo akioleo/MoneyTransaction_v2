@@ -5,13 +5,36 @@ namespace App\Http\Controllers;
 use App\Api\ApiMessages;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Services\ExternalService;
 use App\Services\TransactionService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\TransactionException;
 
 class TransactionController extends Controller
 {
+    private $transaction;
+
+    public function __construct(Transaction $transaction)
+    {
+        $this->transaction = $transaction;
+    }
+    public function index(User $users)
+    {
+        $user = auth()->user();
+        $transactions = $user->$this->transaction;
+        return response()->json([
+            'data' => $transactions
+        ], 200);
+    }
+
+    public function show($transaction)
+    {
+        $transactions = $this->transaction->whereId($transaction)->first();
+        return response()->json([
+            'data' => $transactions
+        ], 200);
+    }
+
     public function store(TransactionRequest $request)
     {
         //DB::beginTransaction();
@@ -22,16 +45,10 @@ class TransactionController extends Controller
             $externalServices->validateMock($transaction);
             return $this->showOne($transaction, 201);
         } catch (\Exception $e) {
-            //DB::rollBack();
-
-
-            //$model = new Transaction();
-            //$model->fill($transaction);
-            //$model->save();
             $message = new ApiMessages($e->getMessage());
             return response()->json($message->getMessage(), 422);
-        } finally {
-            //DB::commit();
         }
     }
+
+
 }

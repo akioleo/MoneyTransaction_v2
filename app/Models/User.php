@@ -64,6 +64,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
     public function getBalance()
     {
         $income = Transaction::where('payee_id', $this->id)->sum('value');
@@ -72,4 +77,5 @@ class User extends Authenticatable implements JWTSubject
         //dd($saida);
         return (float)$income - $saida;
     }
+
 }
