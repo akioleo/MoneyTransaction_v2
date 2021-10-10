@@ -22,7 +22,8 @@ class TransactionTransformer extends TransformerAbstract
             'payer_id' => (int) $transaction->payer_id,
             'status' => (string) $transaction->status,
             'operation_type' => (string) $transaction->operation_type,
-            'payee' => $transaction->payee->transform(),
+            'payee' => $transaction->payee ? $transaction->payee->transform() : null,
+            'payer' => $transaction->payer ? $transaction->payer->transform() : null,
             'date_now' => now()
         ];
     }

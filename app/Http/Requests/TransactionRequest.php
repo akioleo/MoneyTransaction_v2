@@ -36,6 +36,7 @@ class TransactionRequest extends FormRequest
             'required' => 'Este campo é obrigatório!',
             'min' => 'O valor mínimo deve ser R$0.1',
             'regex' => 'Deve informar no máximo duas casas decimais',
+            'exists' => 'Usuário não existe no sistema'
         ];
     }
 }

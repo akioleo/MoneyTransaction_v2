@@ -16,12 +16,12 @@ class UserTransformer extends TransformerAbstract
     public function transform(User $user)
     {
         return [
-            'id' => (int) $user->id,
-            'name' => (string) $user->name,
-            'email' => (string) $user->email,
-            'document' => (string) $user->document,
-            'account_type' => (string) $user->account_type,
-            'balance' => (float) $user->getBalance()
+            'id' => (int)$user->id,
+            'name' => (string)$user->name,
+            'email' => (string)$user->email,
+            'document' => (string)$user->document,
+            'account_type' => (string)$user->account_type,
+            'balance' => (float)$user->getBalance()
         ];
     }
 }
