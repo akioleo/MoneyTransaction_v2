@@ -1,64 +1,183 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<div align='right'>
+    <a href="./README.md">Inglês |</a>
+    <a href="./PORTUGUESE.md">Português</a>
+</div>
+
+<div align='center'>
+    <h1>Money Transaction</h1>
+    <a href="https://www.linkedin.com/in/leonardo-akio/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn%20-blue?style=flat&logo=linkedin&labelColor=blue" target="_blank"></a> 
+    <img src="https://img.shields.io/badge/version-v0.1-blue"/>
+    <img src="https://img.shields.io/github/contributors/akioleo/MoneyTransaction_v2"/>
+    <img src="https://img.shields.io/github/stars/akioleo/MoneyTransaction_v2?style=sociale"/>
+    <img src="https://img.shields.io/github/forks/akioleo/MoneyTransaction_v2?style=social"/>
+    <img src="https://img.shields.io/badge/License-MIT-blue"/>
+</div>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://i.postimg.cc/1Xk4pHSk/postman.png" alt="Sublime's custom image"/>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The project simulates a system of financial transactions to make transfers, deposits and withdrawals. The rules are, shopkeepers cannot transfer, only users; transfers cannot be of the same id and before any transfer or withdrawal is done, has one validation of the user's balance. The project was built in `PHP 8.0` and `Laravel 8.63`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Table of Contents
+- [Structure](#structure)
+- [Getting Started](#getting-started)
+	- [Installation](#installation)
+	- [Configuration](#configuration)
+	- [Versions](#versions)
+- [Development](#development)
+    - [Database relationships](#database-relationships)
+        - [User-Store](#user-store) 
+        - [Store-Products](#store-products)
+        - [Products-Categories](#products-categories)
+	- [Paths](#paths)
+- [Contributing](#contributing)
+- [License](#license)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Structure 
 
-## Learning Laravel
+```bash
+├── app/
+├── config/
+├── database/
+├── public/
+├── resources/
+├── routes/
+├── storage./
+├── tests/
+├── vendor/
+├── artisan
+├── composer.json
+├── composer.lock
+├── package.json
+├── phpunit.xml
+├── server.php
+├── webpack.mix.js
+├── yarn.lock
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Getting Started
+Open and view the Project using the `.zip` file provided
+<br/>
+Or to get started, clone the repository to your directory
+```bash
+> git clone https://github.com/akioleo/MoneyTransaction_v2.git
+```    
+Start the local development server
+```bash
+> php artisan serve
+```   
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Installation
+Install all the dependencies using composer
+```bash
+> composer install
+```
+Install front dependencies
+```bash
+> npm install
+```
+Create a new *.env* archive based on *.env.example*
+```bash
+> php -r "copy('.env.example', '.env');"
+```
+Generate a new artisan key
+```bash
+> php artisan key:generate
+```
+Generate a JWT Secret
+```bash
+> php artisan jwt:secret
+```
 
-## Laravel Sponsors
+### Configuration
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+In new `.env` file type your database credentials in these lines<br/>
+*Obs: **DB_CONNECTION** changes by the database used. Example: Postgre database (**pgsql**), sqlite, sqlsrv*
 
-### Premium Partners
+    DB_CONNECTION=mysql  
+    DB_HOST=127.0.0.1  
+    DB_PORT=3306  
+    DB_DATABASE=laravel  
+    DB_USERNAME=root  
+    DB_PASSWORD=
+ 
+Run the database migrations to create predefined database tables with flag `--seed` to get initial data 
+```bash
+> php artisan migrate --seed
+```   
+Or run seeds later to populate the database with data
+```bash
+> php artisan db:seed  
+```    
+### Versions
+We can check tools versions to avoid some errors 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+    php --version  |  composer --version  |  php artisan laravel --version
+    
+Two Laravel Packages were used:
+
+    tymondesigns/jwt-auth -> https://github.com/tymondesigns/jwt-auth
+    spatie/laravel-fractal -> https://github.com/spatie/laravel-fractal
+    
+***Note*** : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
+```bash
+> php artisan migrate:fresh --seed
+```
+
+## Development
+
+### Database relationships
+
+#### User-Transaction
+**1:N relationship** - where one user ***hasMany*** transactions and one transaction ***belongsTo*** an user
+```php
+- User
+$this->hasMany(Transaction::class, 'payer_id', 'id');
+- Payer
+$this->belongsTo(User::class, 'payer_id', 'id');
+* Payee *
+$this->belongsTo(User::class, 'payee_id', 'id');
+```
+
+
+### Paths
+
+- `app` - Contains all the Eloquent models
+- `app/Api` - Contains the exception response structure
+- `app/Http/Controllers/Admin` - Contains all admin user controllers
+- `app/Http/Controllers/Api` - Contains all api controllers
+- `app/Http/Controllers/Front` - Contains all front-end controllers
+- `app/Http/Requests/Api` - Contains all admin user and api form requests
+- `app/Services` - Contains all services to managing class dependencies and performing dependency injection
+- `app/Traits` - Contains all traits of the project
+- `app/Transformers` - Contains transformers to tranform data from model object
+- `config` - Contains all the application configuration files
+- `database/factories` - Contains the model factory for all the models
+- `database/migrations` - Contains all the database migrations
+- `database/seeds` - Contains the database seeder's
+- `public/` - Contains public assets of project (css, and js) 
+- `resources/views` - Contains blade documents (front-end)
+- `routes` - Contains all the api routes defined in api.php file and web routes (web.php)
+- `storage/app` - A directory to save private photos 
+- `tests` - Contains all the application tests
+- `tests/Feature` - Contains integration tests
+- `tests/Feature` - Contains unit tests
+- `vendor`- Includes the Composer dependencies in the file autoload.
+- `.env` - A simple text configuration file for controlling your Applications environment constants.
+- `composer.json` - Contains a project name, version and a few other details
+- `composer.lock` - Records the exact versions that are installed
+- `package.json` - Contains few packages such as vue and axios to help you get started building your JavaScript application
+- `phpunit.xml`- A testing utility included by default in a fresh installation of Laravel
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+We'd love to have your helping hand on `MoneyTransaction`. If you have any contribuition, we can rate some pull requests.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+`Marketplace` is open source software [licensed as MIT][license].
+
+[license]: https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt
