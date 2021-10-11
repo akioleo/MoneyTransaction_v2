@@ -12,7 +12,7 @@
         <p class="fs-5 text-muted">R${{ $balance }}</p>
     </div>
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center align-items-start justify-content-center">
-        @if($type === 0)
+        @if($type === \App\Constants\Constants::USER_ACCOUNT_TYPE_USER)
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm">
                 <div class="card-header py-3">

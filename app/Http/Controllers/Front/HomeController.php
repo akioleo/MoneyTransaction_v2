@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Constants\Constants;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class HomeController extends Controller
     {
         $user = $request->user();
         if (strlen($user['document']) > 11){
-            $user['account_type'] = 1;
+            $user['account_type'] = Constants::USER_ACCOUNT_TYPE_SHOPKEEPER;
             $user->save();
         }
         $userType = auth()->user()->account_type;
@@ -40,8 +41,10 @@ class HomeController extends Controller
     public function transfer(Request $request)
     {
         $extract = auth()->user()->balance;
+        $acctype = auth()->user()->account_type;
         return view('transfer', [
-            'balance' => $extract
+            'balance' => $extract,
+            'acctype' => $acctype
             ]);
     }
 

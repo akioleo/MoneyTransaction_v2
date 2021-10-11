@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Api\ApiMessages;
+use App\Constants\Constants;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
@@ -45,15 +46,24 @@ class TransactionController extends Controller
 
     public function store(TransactionRequest $request)
     {
+        DB::beginTransaction();
         try {
             $transactionService = new TransactionService();
             $transaction = $transactionService->store($request->all());
             $externalServices = new ExternalService();
-            $externalServices->validateMock($transaction);
+            $response = $externalServices->validateMock($transaction);
+
+            if (isset($response)) {
+                DB::rollBack();
+                return response()->json(['data' => ['message' => 'Transação não aprovada por validador externo', 'status' => $response]], 502);
+            }
+
             return $this->showOne($transaction, 201);
         } catch (\Exception $e) {
             $message = new ApiMessages($e->getMessage());
             return response()->json($message->getMessage(), 422);
+        } finally {
+            DB::commit();
         }
     }
 }

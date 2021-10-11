@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\Constants;
 use App\Traits\ModelTransform;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -71,11 +72,8 @@ class User extends Authenticatable implements JWTSubject
 
     public function getBalance()
     {
-        $income = Transaction::where('payee_id', $this->id)->sum('value');
-        //dd($receitas);
-        $saida = Transaction::where('payer_id', $this->id)->sum('value');
-        //dd($saida);
-        return (float)$income - $saida;
+        $income = Transaction::where('payee_id', $this->id)->where('status', Constants::TRANSACTION_STATUS_SUCCESS)->sum('value');
+        $debit = Transaction::where('payer_id', $this->id)->where('status', Constants::TRANSACTION_STATUS_SUCCESS)->sum('value');
+        return (float)$income - $debit;
     }
-
 }
