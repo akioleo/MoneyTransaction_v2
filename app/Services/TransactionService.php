@@ -12,7 +12,7 @@ class TransactionService
         $user = auth()->user();
         $transaction = new Transaction();
         $transaction->payer_id = $user->id;
-
+"fkdslkldsfklsdkfldskflsdkflsdf"
         if (in_array($data['operation_type'], [Constants::TRANSACTION_OPERATION_TRANSFER])) {
             $transaction->fill($data);
             if ($user->account_type == Constants::USER_ACCOUNT_TYPE_SHOPKEEPER) {
